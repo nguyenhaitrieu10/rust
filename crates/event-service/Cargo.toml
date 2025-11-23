@@ -1,5 +1,5 @@
 [package]
-name = "shared"
+name = "event-service"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
@@ -11,9 +11,28 @@ keywords.workspace = true
 categories.workspace = true
 rust-version.workspace = true
 
+[[bin]]
+name = "event-service"
+path = "src/main.rs"
+
 [dependencies]
+# Shared libraries
+shared = { path = "../shared" }
+database = { path = "../database" }
+cache = { path = "../cache" }
+
 # Async runtime
 tokio = { workspace = true }
+tokio-util = { workspace = true }
+
+# Database
+sqlx = { workspace = true }
+
+# Redis
+redis = { workspace = true }
+
+# Kafka
+rdkafka = { workspace = true }
 
 # Serialization
 serde = { workspace = true }
@@ -28,32 +47,24 @@ uuid = { workspace = true }
 chrono = { workspace = true }
 url = { workspace = true }
 
-# Validation
-validator = { workspace = true }
-
-# Logging
+# Logging and tracing
 tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# Metrics
+metrics = { workspace = true }
 
 # Configuration
 config = { workspace = true }
 figment = { workspace = true }
 
-# Additional dependencies for utilities
-regex = "1.10"
-argon2 = { workspace = true }
-rand = "0.8"
-async-trait = "0.1"
+# CLI
+clap = { workspace = true }
+dotenvy = { workspace = true }
 
-# Optional dependencies for error types
-sqlx = { workspace = true, optional = true }
-redis = { workspace = true, optional = true }
-reqwest = { workspace = true, optional = true }
-
-[features]
-default = ["database", "cache", "http"]
-database = ["sqlx"]
-cache = ["redis"]
-http = ["reqwest"]
+# Async traits
+async-trait = { workspace = true }
 
 [dev-dependencies]
 tokio-test = "0.4"
+testcontainers = { workspace = true }

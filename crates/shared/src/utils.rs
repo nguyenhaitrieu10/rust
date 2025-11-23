@@ -105,20 +105,23 @@ pub fn parse_duration(s: &str) -> AppResult<Duration> {
 
 /// Sanitize string for logging (remove sensitive data)
 pub fn sanitize_for_logging(input: &str) -> String {
-    // Remove common sensitive patterns
-    let patterns = [
-        (r"password[\"':\s]*[\"']([^\"']+)[\"']", "password: \"***\""),
-        (r"token[\"':\s]*[\"']([^\"']+)[\"']", "token: \"***\""),
-        (r"secret[\"':\s]*[\"']([^\"']+)[\"']", "secret: \"***\""),
-        (r"key[\"':\s]*[\"']([^\"']+)[\"']", "key: \"***\""),
-        (r"authorization[\"':\s]*[\"']([^\"']+)[\"']", "authorization: \"***\""),
-    ];
-    
     let mut result = input.to_string();
-    for (pattern, replacement) in &patterns {
-        if let Ok(re) = regex::Regex::new(pattern) {
-            result = re.replace_all(&result, *replacement).to_string();
-        }
+    
+    // Simple pattern matching for common sensitive fields
+    if result.contains("password") {
+        result = result.replace("password", "password: ***");
+    }
+    if result.contains("token") {
+        result = result.replace("token", "token: ***");
+    }
+    if result.contains("secret") {
+        result = result.replace("secret", "secret: ***");
+    }
+    if result.contains("key") {
+        result = result.replace("key", "key: ***");
+    }
+    if result.contains("authorization") {
+        result = result.replace("authorization", "authorization: ***");
     }
     
     result

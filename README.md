@@ -1,3 +1,4 @@
+```bash
 rust-microservices/
 ├── Cargo.toml                 # Workspace configuration
 ├── Cargo.lock
@@ -97,3 +98,84 @@ rust-microservices/
     └── workflows/
         ├── ci.yml
         └── cd.yml
+```
+```bash
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   API Service   │    │ Worker Service  │    │ Event Service   │
+│    (Axum)       │    │ (Background)    │    │   (Kafka)       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+         ┌─────────────────┬─────┴─────┬─────────────────┐
+         │                 │           │                 │
+    ┌────▼────┐      ┌────▼────┐ ┌───▼────┐      ┌────▼────┐
+    │ Shared  │      │Database │ │ Cache  │      │  ...    │
+    │ Library │      │ (SQLx)  │ │(Redis) │      │         │
+    └─────────┘      └─────────┘ └────────┘      └─────────┘
+
+```
+
+# Technology Stack
+
+Web Framework: Axum (fast, ergonomic, built on Tokio)
+
+Database: PostgreSQL with SQLx (compile-time checked queries)
+
+Cache: Redis with async connection pooling
+
+Serialization: Serde with multiple format support
+
+Logging: Tracing with structured logging
+
+Metrics: Prometheus-compatible metrics collection
+
+Configuration: Figment with environment-specific configs
+Key Features
+
+Multi-tenancy: Built-in tenant isolation across all entities
+
+Soft Deletes: Logical deletion with audit trail preservation
+
+Event Sourcing: Event storage for audit and replay capabilities
+
+Caching Strategy: Multi-level caching with compression and TTL
+
+Security: JWT authentication, password hashing, rate limiting
+
+Observability: Health checks, metrics, distributed tracing
+
+Scalability: Connection pooling, async processing, horizontal scaling ready
+
+
+🚀 Ready for Development
+Quick Start Commands
+# Setup development environment
+./scripts/setup.sh
+
+# Start all services
+just up
+
+# Run in development mode
+just dev-api    # Start API service
+just dev-worker # Start worker service
+just dev-event  # Start event service
+
+# Run tests
+just test
+
+# Deploy to staging/production
+./scripts/deploy.sh staging
+
+Development Tools
+justfile: 30+ automation commands for common tasks
+Docker Compose: Complete local development environment
+Scripts: Setup, testing, and deployment automation
+CI/CD: GitHub Actions with testing, security, and coverage
+Kubernetes: Production-ready manifests with scaling
+Monitoring & Observability
+Health Checks: http://localhost:8080/health
+Metrics: http://localhost:9090/metrics
+Grafana Dashboard: http://localhost:3000 (admin/admin)
+Jaeger Tracing: http://localhost:16686
+Prometheus: http://localhost:9091

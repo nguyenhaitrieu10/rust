@@ -105,6 +105,12 @@ wiremock = "0.5"
 clap = { version = "4.4", features = ["derive", "env"] }
 dotenvy = "0.15"
 
+# Cron scheduling
+cron = "0.12"
+
+# Additional testing
+axum-test = "14.0"
+
 [profile.dev]
 debug = true
 opt-level = 0
