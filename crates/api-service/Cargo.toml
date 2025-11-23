@@ -1,0 +1,85 @@
+[package]
+name = "api-service"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+keywords.workspace = true
+categories.workspace = true
+rust-version.workspace = true
+
+[[bin]]
+name = "api-service"
+path = "src/main.rs"
+
+[dependencies]
+# Shared libraries
+shared = { path = "../shared" }
+database = { path = "../database" }
+cache = { path = "../cache" }
+
+# Async runtime
+tokio = { workspace = true }
+
+# Web framework
+axum = { workspace = true }
+axum-extra = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+hyper = { workspace = true }
+
+# Database
+sqlx = { workspace = true }
+
+# Redis
+redis = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Error handling
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# Utilities
+uuid = { workspace = true }
+chrono = { workspace = true }
+url = { workspace = true }
+
+# Validation
+validator = { workspace = true }
+
+# Security
+jsonwebtoken = { workspace = true }
+argon2 = { workspace = true }
+
+# HTTP client
+reqwest = { workspace = true }
+
+# Logging and tracing
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# Metrics
+metrics = { workspace = true }
+metrics-exporter-prometheus = { workspace = true }
+
+# Configuration
+config = { workspace = true }
+figment = { workspace = true }
+
+# CLI
+clap = { workspace = true }
+dotenvy = { workspace = true }
+
+# Async traits
+async-trait = { workspace = true }
+
+[dev-dependencies]
+tokio-test = "0.4"
+testcontainers = { workspace = true }
+wiremock = { workspace = true }
